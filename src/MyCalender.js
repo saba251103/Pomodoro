@@ -92,6 +92,26 @@ const MyCalendar = () => {
         start: newEvent.start.toDate(),
         end: newEvent.end.toDate()
       };
+      const eventData = { 
+        title: newEvent.title,
+        description: newEvent.description,
+        color: newEvent.color,
+        startDate: newEvent.start,  
+        endDate: newEvent.end
+      };
+
+      fetch("http://192.168.0.182:5000/eventdetails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventData),
+      })
+        .then(response => response.json())
+        .then(data => console.log("Event added:", data))
+        .catch(error => console.error("Error:", error));
+
+
       
       if (isEditing) {
         setEvents((prevEvents) => 
